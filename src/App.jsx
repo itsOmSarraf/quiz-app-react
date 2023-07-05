@@ -6,7 +6,6 @@ import shuffle from "lodash/shuffle";
 export default function App() {
   const [quiz, setQuiz] = React.useState("");
 
-  // const [score, setScore] = React.useState(0);
   const [questionSet, setQuestionSet] = React.useState([]);
 
   React.useEffect(() => {
@@ -44,9 +43,9 @@ export default function App() {
 
   return (
     <>
-      <div className="w-screen h-screen md:w-[600px] md:h-[600px] bg-[#FFFAD1] md:m-auto md:mt-9 md:rounded-3xl shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
+      <div className="w-screen h-screen md:w-[600px] md:h-fit bg-[#FFFAD1] md:m-auto md:mt-9 md:rounded-3xl shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
         {buttonClicked ? (
-          <h1 className="text-4xl font-bold text-center text-[#4D5B9E] md:text-5xl">
+          <h1 className="text-4xl my-2 font-bold text-center text-[#4D5B9E] md:text-5xl">
             Questions
           </h1>
         ) : (
