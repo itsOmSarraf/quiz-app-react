@@ -1,7 +1,10 @@
 export default function Questions(props) {
+  console.log(props);
   return (
-    <div className="flex flex-col items-center justify-center h-full">
-      <h3></h3>
-    </div>
+    <>
+      <div>
+        <h1>{props.question}</h1>
+      </div>
+    </>
   );
 }

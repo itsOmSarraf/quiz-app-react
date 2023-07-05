@@ -23,10 +23,25 @@ export default function App() {
     console.log("Quiz Started");
   }
 
+  const questionElements = questionSet.map((question) => (
+    <Questions question={question.question} />
+  ));
+
   return (
     <>
       <div className="w-screen h-screen md:w-[600px] md:h-[600px] bg-[#FFFAD1] md:m-auto md:mt-9 md:rounded-3xl shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
-        {buttonClicked ? <Questions /> : <StartQuiz startQuiz={startQuiz} />}
+        {buttonClicked ? (
+          <h1 className="text-4xl font-bold text-center text-[#4D5B9E] md:text-5xl">
+            Questions
+          </h1>
+        ) : (
+          <div></div>
+        )}
+        {buttonClicked ? (
+          <div>{questionElements}</div>
+        ) : (
+          <StartQuiz startQuiz={startQuiz} />
+        )}
       </div>
     </>
   );
