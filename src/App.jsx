@@ -7,12 +7,13 @@ export default function App() {
   const [questionSet, setQuestionSet] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.results);
-        setQuestionSet(data.results);
-      });
+    if (quiz !== "") {
+      fetch("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy")
+        .then((res) => res.json())
+        .then((data) => {
+          setQuestionSet(data.results);
+        });
+    }
   }, [quiz]);
 
   const [buttonClicked, setButtonClicked] = React.useState(false);

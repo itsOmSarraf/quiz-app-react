@@ -3,7 +3,7 @@ export default function Questions(props) {
   return (
     <>
       <div>
-        <h1>{props.question}</h1>
+        <h1 className=""> • {props.question}</h1>
       </div>
     </>
   );
