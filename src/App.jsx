@@ -1,17 +1,21 @@
 import React from "react";
 import Questions from "./components/Questions";
 import StartQuiz from "./components/StartQuiz";
+import shuffle from "lodash/shuffle";
+
 export default function App() {
   const [quiz, setQuiz] = React.useState("");
+
   // const [score, setScore] = React.useState(0);
   const [questionSet, setQuestionSet] = React.useState([]);
 
   React.useEffect(() => {
     if (quiz !== "") {
-      fetch("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy")
+      fetch("https://opentdb.com/api.php?amount=5&category=18&difficulty=easy")
         .then((res) => res.json())
         .then((data) => {
           setQuestionSet(data.results);
+          console.log(data.results);
         });
     }
   }, [quiz]);
@@ -21,12 +25,22 @@ export default function App() {
   function startQuiz() {
     setQuiz("not empty now :P");
     setButtonClicked(true);
+    confirm("Are you ready to start the quiz?");
     console.log("Quiz Started");
   }
 
-  const questionElements = questionSet.map((question) => (
-    <Questions question={question.question} />
-  ));
+  const questionElements = questionSet.map((question) => {
+    return (
+      <Questions
+        key={question.question}
+        question={question.question}
+        correctAns={question.correct_answer}
+        incorrectAns={shuffle(
+          question.incorrect_answers.concat(question.correct_answer)
+        )}
+      />
+    );
+  });
 
   return (
     <>
