@@ -1,5 +1,7 @@
 import { decode } from "html-entities";
 
+let responseArr = [];
+
 export default function Questions(props) {
   const optionsArr = props.incorrectAns.map((option) => {
     return (
@@ -8,7 +10,7 @@ export default function Questions(props) {
           className="peer hidden cursor-pointer"
           id={option}
           type="radio"
-          name="answer"
+          name={props.question}
           value={option}
           onClick={handleOptionChange}
         />
@@ -16,20 +18,43 @@ export default function Questions(props) {
       </fieldset>
     );
   });
-  function handleOptionChange(event) {
-    event.preventDefault();
-    let isClicked = false;
 
-    console.log(event.target.value, props.correctAns, props.question);
+  function handleOptionChange(event) {
+    function checkResponseArr() {
+      for (let i = 0; i < responseArr.length; i++) {
+        if (responseArr[i].question === props.question) {
+          responseArr.splice(i, 1);
+        }
+      }
+    }
+    checkResponseArr();
+    let responseObj = {
+      question: props.question,
+      correctAns: props.correctAns,
+      value: event.target.value,
+      isCorrect: event.target.value === props.correctAns ? true : false,
+    };
+    event.preventDefault();
+    console.log(responseObj);
     if (event.target.value === props.correctAns) {
       console.log("Correct Answer");
-
-      isClicked = true;
+      responseArr.push(responseObj);
+      console.log(responseArr);
     } else {
       console.log("Incorrect Answer");
-
-      isClicked = true;
+      responseArr.push(responseObj);
+      console.log(responseArr);
     }
+  }
+
+  function countCorrectAns() {
+    let count = 0;
+    for (let i = 0; i < responseArr.length; i++) {
+      if (responseArr[i].isCorrect === true) {
+        count++;
+      }
+    }
+    console.log("Number of correct answers:", count);
   }
 
   return (
@@ -38,6 +63,7 @@ export default function Questions(props) {
         <legend>{decode(props.question)}</legend>
         <div className="flex gap-3">{optionsArr}</div>
       </form>
+      <button onClick={countCorrectAns}>Count Correct Answers</button>
     </>
   );
 }
