@@ -1,7 +1,7 @@
 import { decode } from "html-entities";
 
 let responseArr = [];
-
+export let count = 0;
 export default function Questions(props) {
   const optionsArr = props.incorrectAns.map((option) => {
     return (
@@ -38,6 +38,7 @@ export default function Questions(props) {
     console.log(responseObj);
     if (event.target.value === props.correctAns) {
       console.log("Correct Answer");
+
       responseArr.push(responseObj);
       console.log(responseArr);
     } else {
@@ -48,7 +49,6 @@ export default function Questions(props) {
   }
 
   function countCorrectAns() {
-    let count = 0;
     for (let i = 0; i < responseArr.length; i++) {
       if (responseArr[i].isCorrect === true) {
         count++;

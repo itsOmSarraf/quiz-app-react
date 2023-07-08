@@ -5,7 +5,6 @@ import shuffle from "lodash/shuffle";
 
 export default function App() {
   const [quiz, setQuiz] = React.useState("");
-
   const [questionSet, setQuestionSet] = React.useState([]);
 
   React.useEffect(() => {
