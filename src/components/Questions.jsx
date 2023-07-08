@@ -1,7 +1,6 @@
 import { decode } from "html-entities";
 
-let responseArr = [];
-export let count = 0;
+export let responseArr = [];
 export default function Questions(props) {
   const optionsArr = props.incorrectAns.map((option) => {
     return (
@@ -38,23 +37,13 @@ export default function Questions(props) {
     console.log(responseObj);
     if (event.target.value === props.correctAns) {
       console.log("Correct Answer");
-
       responseArr.push(responseObj);
-      console.log(responseArr);
+      // console.log(responseArr);
     } else {
       console.log("Incorrect Answer");
       responseArr.push(responseObj);
-      console.log(responseArr);
+      // console.log(responseArr);
     }
-  }
-
-  function countCorrectAns() {
-    for (let i = 0; i < responseArr.length; i++) {
-      if (responseArr[i].isCorrect === true) {
-        count++;
-      }
-    }
-    console.log("Number of correct answers:", count);
   }
 
   return (
@@ -63,7 +52,6 @@ export default function Questions(props) {
         <legend>{decode(props.question)}</legend>
         <div className="flex gap-3">{optionsArr}</div>
       </form>
-      <button onClick={countCorrectAns}>Count Correct Answers</button>
     </>
   );
 }
