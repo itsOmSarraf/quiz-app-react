@@ -27,6 +27,12 @@ export default function App() {
       fetch(apiURL)
         .then((res) => res.json())
         .then((data) => {
+          data.results.map((question) => {
+            question.incorrect_answers = shuffle(
+              question.incorrect_answers.concat(question.correct_answer)
+            );
+          });
+
           setQuestionSet(data.results);
           console.log(data.results);
         });
@@ -53,10 +59,8 @@ export default function App() {
         key={question.question}
         question={question.question}
         correctAns={question.correct_answer}
-        incorrectAns={shuffle(
-          question.incorrect_answers.concat(question.correct_answer)
-        )}
-        revealed={revealed} // Pass "revealed" state here
+        incorrectAns={question.incorrect_answers}
+        revealed={revealed}
       />
     );
   });

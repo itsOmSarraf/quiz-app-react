@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { decode } from "html-entities";
-import shuffle from "lodash/shuffle";
 
 export let responseArr = [];
 
 export default function Questions(props) {
   const [selectedOption, setSelectedOption] = useState("");
-  const [options, setOptions] = useState([]);
-
-  useEffect(() => {
-    // Ensure that props.correctAns is not included in props.incorrectAns
-    const incorrectAnswers = props.incorrectAns.filter(
-      (ans) => ans !== props.correctAns
-    );
-
-    // Then shuffle
-    setOptions(shuffle(incorrectAnswers.concat(props.correctAns)));
-  }, [props.incorrectAns, props.correctAns]);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    // Your existing logic here
+
     function checkResponseArr() {
       for (let i = 0; i < responseArr.length; i++) {
         if (responseArr[i].question === props.question) {
@@ -38,7 +26,7 @@ export default function Questions(props) {
     responseArr.push(responseObj);
   };
 
-  const optionsArr = options.map((option, index) => {
+  const optionsArr = props.incorrectAns.map((option, index) => {
     const isSelected = option === selectedOption;
     let finalStyleOption = {};
     if (props.revealed) {
@@ -53,14 +41,14 @@ export default function Questions(props) {
     } else {
       finalStyleOption = isSelected ? "bg-orange-200" : "bg-[#9dacf5]";
     }
-    const optionStyle = `my-3 md:my-0 text-center rounded-xl py-1 px-3 bg-[#9dacf5] cursor-pointer ${finalStyleOption}`;
+    const optionStyle = `cursor-pointer flex flex-wrap my-3 md:my-0 rounded-xl py-1 px-3 bg-[#9dacf5] text-center ${finalStyleOption}`;
 
     let uniqueId = `${props.question}_${index}`; // Unique Id here
 
     return (
       <label htmlFor={uniqueId} className={optionStyle}>
         <input
-          className="peer hidden cursor-pointer"
+          className="peer hidden w-full"
           id={uniqueId}
           type="radio"
           name={props.question}
@@ -75,11 +63,9 @@ export default function Questions(props) {
 
   return (
     <>
-      <form className="px-5 py-3">
-        <legend className="cursor-pointer">{decode(props.question)}</legend>
-        <div className="cursor-pointer flex flex-wrap md:flex gap-3">
-          {optionsArr}
-        </div>
+      <form className="px-5 py-3 text-center">
+        <legend className="text-center">{decode(props.question)}</legend>
+        <div className="flex-wrap gap-3">{optionsArr}</div>
       </form>
     </>
   );
