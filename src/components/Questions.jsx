@@ -37,8 +37,13 @@ export default function Questions(props) {
 
     if (event.target.value === props.correctAns) {
       responseArr.push(responseObj);
+      // event.target.parentElement.classList.add("bg-[#9df5a3]");
+      // add black border
+      event.target.parentElement.classList.add("bg-orange-200");
     } else {
       responseArr.push(responseObj);
+      // event.target.parentElement.classList.add("bg-[#f59d9d]");
+      event.target.parentElement.classList.add("bg-orange-200");
     }
   }
 
