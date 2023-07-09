@@ -7,7 +7,7 @@ import { responseArr } from "./components/Questions";
 export default function App() {
   const [quiz, setQuiz] = React.useState("");
   const [questionSet, setQuestionSet] = React.useState([]);
-
+  const [restltBtn, setRestltBtn] = React.useState(false);
   const [count, setCount] = React.useState(0);
 
   function countCorrectAns() {
@@ -17,6 +17,7 @@ export default function App() {
         setCount((ct) => ct + 1);
       }
     }
+    setRestltBtn(true);
   }
   let apiURL = "https://opentdb.com/api.php?amount=5&category=18&type=multiple";
   React.useEffect(() => {
@@ -40,7 +41,9 @@ export default function App() {
     confirm("Are you ready to start the quiz?");
     // console.log("Quiz Started");
   }
-
+  function refreshScreen() {
+    window.location.reload();
+  }
   const questionElements = questionSet.map((question) => {
     return (
       <Questions
@@ -58,21 +61,37 @@ export default function App() {
     <>
       <div className="w-screen h-screen md:w-[600px] md:h-fit bg-[#FFFAD1] md:m-auto md:mt-9 md:rounded-3xl shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
         {buttonClicked ? (
-          <h1 className="text-4xl my-2 font-bold text-center text-[#4D5B9E] md:text-5xl">
-            Questions
-          </h1>
+          <div className="flex justify-center align-middle items-center">
+            <h1 className="text-4xl my-2 font-bold text-center text-[#4D5B9E] md:text-5xl">
+              Questions
+            </h1>
+            <h2 className="md:ml-10 text-2xl my-2 font-bold text-center text-[#000000] md:text-3xl">
+              {count}/5
+            </h2>
+          </div>
         ) : (
           <div></div>
         )}
         {buttonClicked ? (
           <div>
             {questionElements}
-            <button
-              className="mt-3 bg-[#4D5B9E] p-3 rounded-xl text-white font-bold"
-              onClick={countCorrectAns}
-            >
-              Result = {count}
-            </button>
+            <div className="w-full flex justify-center">
+              {restltBtn ? (
+                <button
+                  className="bg-[#4D5B9E] text-white rounded-xl px-5 py-2 my-5"
+                  onClick={refreshScreen}
+                >
+                  Play Again
+                </button>
+              ) : (
+                <button
+                  className="bg-[#4D5B9E] text-white rounded-xl px-5 py-2 my-5"
+                  onClick={countCorrectAns}
+                >
+                  See Results
+                </button>
+              )}
+            </div>
           </div>
         ) : (
           <StartQuiz startQuiz={startQuiz} />
