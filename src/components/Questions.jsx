@@ -8,7 +8,7 @@ export default function Questions(props) {
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-
+    // Your existing logic here
     function checkResponseArr() {
       for (let i = 0; i < responseArr.length; i++) {
         if (responseArr[i].question === props.question) {
@@ -26,25 +26,27 @@ export default function Questions(props) {
     responseArr.push(responseObj);
   };
 
-  const optionsArr = props.incorrectAns.map((option) => {
+  const optionsArr = props.incorrectAns.map((option, index) => {
     const isSelected = option === selectedOption;
     const optionStyle = `my-3 md:my-0 text-center rounded-xl py-1 px-3 cursor-pointer ${
       isSelected ? "bg-orange-200" : "bg-[#9dacf5]"
     }`;
 
+    let uniqueId = `${props.question}_${index}`; // Unique Id here
+
     return (
-      <fieldset className={optionStyle}>
+      <label htmlFor={uniqueId} className={optionStyle}>
         <input
           className="peer hidden cursor-pointer"
-          id={option}
+          id={uniqueId}
           type="radio"
           name={props.question}
           value={option}
-          onClick={handleOptionChange}
           checked={isSelected}
+          onChange={handleOptionChange}
         />
-        <label htmlFor={option}>{decode(option)}</label>
-      </fieldset>
+        {decode(option)}
+      </label>
     );
   });
 
