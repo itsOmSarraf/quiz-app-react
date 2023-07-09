@@ -4,7 +4,7 @@ export let responseArr = [];
 export default function Questions(props) {
   const optionsArr = props.incorrectAns.map((option) => {
     return (
-      <fieldset className="my-3 text-center rounded-xl py-1 px-3 bg-[#9dacf5] cursor-pointer">
+      <fieldset className="my-3 md:my-0 text-center rounded-xl py-1 px-3 bg-[#9dacf5] cursor-pointer">
         <input
           className="peer hidden cursor-pointer"
           id={option}
