@@ -4,7 +4,7 @@ export let responseArr = [];
 export default function Questions(props) {
   const optionsArr = props.incorrectAns.map((option) => {
     return (
-      <fieldset className="rounded-xl py-1 px-3  bg-[#9dacf5] cursor-pointer">
+      <fieldset className="my-3 text-center rounded-xl py-1 px-3 bg-[#9dacf5] cursor-pointer">
         <input
           className="peer hidden cursor-pointer"
           id={option}
@@ -34,12 +34,10 @@ export default function Questions(props) {
       isCorrect: event.target.value === props.correctAns ? true : false,
     };
     event.preventDefault();
-    // console.log(responseObj);
+
     if (event.target.value === props.correctAns) {
-      // console.log("Correct Answer");
       responseArr.push(responseObj);
     } else {
-      // console.log("Incorrect Answer");
       responseArr.push(responseObj);
     }
   }
@@ -47,8 +45,10 @@ export default function Questions(props) {
   return (
     <>
       <form className="px-5 py-3">
-        <legend>{decode(props.question)}</legend>
-        <div className="flex gap-3">{optionsArr}</div>
+        <legend className="cursor-pointer">{decode(props.question)}</legend>
+        <div className="cursor-pointer flex-wrap md:flex gap-3">
+          {optionsArr}
+        </div>
       </form>
     </>
   );

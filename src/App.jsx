@@ -59,13 +59,13 @@ export default function App() {
 
   return (
     <>
-      <div className="w-screen h-screen md:w-[600px] md:h-fit bg-[#FFFAD1] md:m-auto md:mt-9 md:rounded-3xl shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
+      <div className="w-fit h-full md:w-[600px] md:h-fit bg-[#FFFAD1] md:m-auto md:mt-9 md:rounded-3xl shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
         {buttonClicked ? (
           <div className="flex justify-center align-middle items-center">
             <h1 className="text-4xl my-2 font-bold text-center text-[#4D5B9E] md:text-5xl">
               Questions
             </h1>
-            <h2 className="md:ml-10 text-2xl my-2 font-bold text-center text-[#000000] md:text-3xl">
+            <h2 className="md:ml-10 ml-3 text-2xl my-2 font-bold text-center text-[#000000] md:text-3xl">
               {count}/5
             </h2>
           </div>
