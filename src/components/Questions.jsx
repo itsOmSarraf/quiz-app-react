@@ -1,24 +1,14 @@
+import React, { useState } from "react";
 import { decode } from "html-entities";
 
 export let responseArr = [];
-export default function Questions(props) {
-  const optionsArr = props.incorrectAns.map((option) => {
-    return (
-      <fieldset className="my-3 md:my-0 text-center rounded-xl py-1 px-3 bg-[#9dacf5] cursor-pointer">
-        <input
-          className="peer hidden cursor-pointer"
-          id={option}
-          type="radio"
-          name={props.question}
-          value={option}
-          onClick={handleOptionChange}
-        />
-        <label htmlFor={option}>{decode(option)}</label>
-      </fieldset>
-    );
-  });
 
-  function handleOptionChange(event) {
+export default function Questions(props) {
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+
     function checkResponseArr() {
       for (let i = 0; i < responseArr.length; i++) {
         if (responseArr[i].question === props.question) {
@@ -33,19 +23,30 @@ export default function Questions(props) {
       value: event.target.value,
       isCorrect: event.target.value === props.correctAns ? true : false,
     };
-    event.preventDefault();
+    responseArr.push(responseObj);
+  };
 
-    if (event.target.value === props.correctAns) {
-      responseArr.push(responseObj);
-      // event.target.parentElement.classList.add("bg-[#9df5a3]");
-      // add black border
-      event.target.parentElement.classList.add("bg-orange-200");
-    } else {
-      responseArr.push(responseObj);
-      // event.target.parentElement.classList.add("bg-[#f59d9d]");
-      event.target.parentElement.classList.add("bg-orange-200");
-    }
-  }
+  const optionsArr = props.incorrectAns.map((option) => {
+    const isSelected = option === selectedOption;
+    const optionStyle = `my-3 md:my-0 text-center rounded-xl py-1 px-3 cursor-pointer ${
+      isSelected ? "bg-orange-200" : "bg-[#9dacf5]"
+    }`;
+
+    return (
+      <fieldset className={optionStyle}>
+        <input
+          className="peer hidden cursor-pointer"
+          id={option}
+          type="radio"
+          name={props.question}
+          value={option}
+          onClick={handleOptionChange}
+          checked={isSelected}
+        />
+        <label htmlFor={option}>{decode(option)}</label>
+      </fieldset>
+    );
+  });
 
   return (
     <>
