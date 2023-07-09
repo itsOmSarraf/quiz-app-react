@@ -9,6 +9,7 @@ export default function App() {
   const [questionSet, setQuestionSet] = React.useState([]);
   const [restltBtn, setRestltBtn] = React.useState(false);
   const [count, setCount] = React.useState(0);
+  const [revealed, setRevealed] = React.useState(false);
 
   function countCorrectAns() {
     for (let i = 0; i < responseArr.length; i++) {
@@ -17,6 +18,7 @@ export default function App() {
         setCount((ct) => ct + 1);
       }
     }
+    setRevealed(true); // Set "revealed" to true here
     setRestltBtn(true);
   }
   let apiURL = "https://opentdb.com/api.php?amount=5&category=18&type=multiple";
@@ -42,6 +44,7 @@ export default function App() {
     // console.log("Quiz Started");
   }
   function refreshScreen() {
+    setRevealed(false); // Reset "revealed" state here
     window.location.reload();
   }
   const questionElements = questionSet.map((question) => {
@@ -53,6 +56,7 @@ export default function App() {
         incorrectAns={shuffle(
           question.incorrect_answers.concat(question.correct_answer)
         )}
+        revealed={revealed} // Pass "revealed" state here
       />
     );
   });
