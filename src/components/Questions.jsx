@@ -34,15 +34,13 @@ export default function Questions(props) {
       isCorrect: event.target.value === props.correctAns ? true : false,
     };
     event.preventDefault();
-    console.log(responseObj);
+    // console.log(responseObj);
     if (event.target.value === props.correctAns) {
-      console.log("Correct Answer");
+      // console.log("Correct Answer");
       responseArr.push(responseObj);
-      // console.log(responseArr);
     } else {
-      console.log("Incorrect Answer");
+      // console.log("Incorrect Answer");
       responseArr.push(responseObj);
-      // console.log(responseArr);
     }
   }
 

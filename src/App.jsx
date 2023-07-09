@@ -18,9 +18,10 @@ export default function App() {
       }
     }
   }
+  let apiURL = "https://opentdb.com/api.php?amount=5&category=18&type=multiple";
   React.useEffect(() => {
     if (quiz !== "") {
-      fetch("https://opentdb.com/api.php?amount=5&category=18&difficulty=easy")
+      fetch(apiURL)
         .then((res) => res.json())
         .then((data) => {
           setQuestionSet(data.results);
@@ -37,7 +38,7 @@ export default function App() {
     setQuiz("not empty now :P");
     setButtonClicked(true);
     confirm("Are you ready to start the quiz?");
-    console.log("Quiz Started");
+    // console.log("Quiz Started");
   }
 
   const questionElements = questionSet.map((question) => {
@@ -57,21 +58,25 @@ export default function App() {
     <>
       <div className="w-screen h-screen md:w-[600px] md:h-fit bg-[#FFFAD1] md:m-auto md:mt-9 md:rounded-3xl shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
         {buttonClicked ? (
-          ((
-            <h1 className="text-4xl my-2 font-bold text-center text-[#4D5B9E] md:text-5xl">
-              Questions
-            </h1>
-          ),
-          (<button onClick={countCorrectAns}>Count Correct Answers</button>))
+          <h1 className="text-4xl my-2 font-bold text-center text-[#4D5B9E] md:text-5xl">
+            Questions
+          </h1>
         ) : (
           <div></div>
         )}
         {buttonClicked ? (
-          <div>{questionElements}</div>
+          <div>
+            {questionElements}
+            <button
+              className="mt-3 bg-[#4D5B9E] p-3 rounded-xl text-white font-bold"
+              onClick={countCorrectAns}
+            >
+              Result = {count}
+            </button>
+          </div>
         ) : (
           <StartQuiz startQuiz={startQuiz} />
         )}
-        \
       </div>
     </>
   );
